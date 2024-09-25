@@ -1,3 +1,1 @@
-export const cn = (...props: string[]): string => {
-    return props.join(' ');
-}
+export const cn = (...props: string[]): string => props.join(' ');
