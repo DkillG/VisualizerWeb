@@ -6,6 +6,7 @@ import { MaterialDTO } from '@/types/material';
 import { IoFingerPrint } from 'react-icons/io5';
 import { BASE_IMAGE_URL } from '@/shared/constants';
 import { useEffect, useRef, useState } from 'react';
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 interface FullPoint extends PointDTO {
 	materials: MaterialDTO[];
@@ -34,7 +35,7 @@ const Room = ({
 			)
 		}))
 	);
-
+	const [loading, setLoading] = useState(false);
 	const [menu, setMenu] = useState<FullPoint | null>(null);
 	const [selectedMaterials, setSelectedMaterials] = useState<SelectedMaterial>(
 		{}
@@ -42,7 +43,8 @@ const Room = ({
 
 	// Handling click event on components
 	const handlePointClick = (point: FullPoint) => setMenu(point);
-	const handleMaterialClick = (material: MaterialDTO) =>
+	const handleMaterialClick = (material: MaterialDTO) => {
+		setLoading(true);
 		setSelectedMaterials(prev => ({
 			...prev,
 			[menu!.id]: {
@@ -50,6 +52,7 @@ const Room = ({
 				layer: material.layers[menu!.id]
 			}
 		}));
+	}
 
 	// Cancels the menu when clicking outside the point
 	useEffect(() => {
@@ -63,6 +66,7 @@ const Room = ({
 
 	return (
 		<div className="relative">
+			{loading && <div className='absolute flex items-center justify-center w-full h-full top-0 left-0 bg-black/50 z-50'><i className='text-4xl animate-spin'><AiOutlineLoading3Quarters /></i></div>}
 			<Image
 				priority
 				width={1240}
@@ -83,6 +87,7 @@ const Room = ({
 								alt={point.name}
 								className="absolute top-0 left-0"
 								src={selectedMaterials[point.id].layer}
+								onLoadingComplete={() => setLoading(false)}
 							/>
 						)
 				)
@@ -94,25 +99,25 @@ const Room = ({
 					<div
 						ref={ref}
 						style={{
-							top: `${menu.coords[1] - 4}%`,
-							left: `${menu.coords[0] + 2}%`
+							left: globalThis?.window.innerWidth < 650 ? '0%' : `${menu.coords[0] + 2}%`,
+							top: globalThis?.window.innerWidth < 650 ? '105%' : `${menu.coords[1] - 4}%`,
 						}}
-						className="absolute flex flex-wrap gap-2 bg-black/50 p-2 rounded-md"
+						className="absolute flex flex-wrap w-full sm:max-w-[11.5rem] sm:justify-start justify-center gap-2 sm:bg-black/50 p-2 rounded-md"
 					>
 						{menu.materials.map((material, i) => (
 							<div
 								key={i}
 								onClick={() => handleMaterialClick(material)}
-								className="flex flex-col w-24 h-28 bg-white hover:bg-[#ddd] rounded-md hover:cursor-pointer duration-200 ease-in-out"
+								className="flex flex-col w-24 sm:w-20 bg-white hover:bg-[#ddd] rounded-md hover:cursor-pointer duration-200 ease-in-out"
 							>
 								<Image
 									width={180}
 									height={180}
 									alt={material.name}
 									src={material.preview}
-									className="rounded-t-md h-20 justify-self-start"
+									className="rounded-t-md h-20 sm:h-16 justify-self-start"
 								/>
-								<span className="flex items-center justify-center text-center text-xs font-medium h-full text-black">
+								<span className="flex items-center justify-center py-2 sm:py-1 text-xs text-center font-medium h-full text-black">
 									{material.name}
 								</span>
 							</div>
@@ -124,19 +129,19 @@ const Room = ({
 			{
 				// Render the points in the base image
 				!menu &&
-					fullPoints.map((point, i) => (
-						<button
-							key={i}
-							style={{
-								top: `${point.coords[1]}%`,
-								left: `${point.coords[0]}%`
-							}}
-							onClick={() => handlePointClick(point)}
-							className="absolute text-2xl hover:scale-110 p-1 bg-zinc-800/40 rounded-full ease-in-out duration-200"
-						>
-							<IoFingerPrint />
-						</button>
-					))
+				fullPoints.map((point, i) => (
+					<button
+						key={i}
+						style={{
+							top: `${point.coords[1]}%`,
+							left: `${point.coords[0]}%`
+						}}
+						onClick={() => handlePointClick(point)}
+						className="absolute text-sm md:text-2xl hover:scale-110 p-1 bg-zinc-800/40 rounded-full ease-in-out duration-200"
+					>
+						<IoFingerPrint />
+					</button>
+				))
 			}
 		</div>
 	);
