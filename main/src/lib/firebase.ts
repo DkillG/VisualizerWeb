@@ -1,5 +1,5 @@
-import { config } from "@/config/firebase";
-import { initializeApp } from "firebase/app";
+import { config } from '@/config/firebase';
+import { initializeApp } from 'firebase/app';
 import { getStorage } from 'firebase/storage';
 import { getFirestore } from 'firebase/firestore';
 

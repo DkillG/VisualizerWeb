@@ -17,7 +17,7 @@ export const getPoints = async (): Promise<PointDTO[]> => {
 
 		return points;
 	} catch (error) {
-        console.error(error);
-        return [];
-    }
+		console.error(error);
+		return [];
+	}
 };

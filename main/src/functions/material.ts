@@ -19,7 +19,7 @@ export const getMaterials = async (): Promise<MaterialDTO[]> => {
 
 		return materials;
 	} catch (error) {
-        console.error(error);
-        return [];
-    }
+		console.error(error);
+		return [];
+	}
 };
