@@ -6,7 +6,7 @@ const pointsId: { [key: string]: string } = {
 	Entrepaños: 'i7EVutewtycZY2qwmldG',
 	Pavimento: 'EnRd7hAaNydVdVJ06qgF',
 	Encimera: 'cd84QwP9gOhAU5p47UDn',
-	Frente: 'Ks5CthbPwAvd2TNxzHEl',
+	Frente: 'Ks5CthbPwAvd2TNxzHEl'
 };
 
 export const getPoints = async (): Promise<PointDTO[]> => {
@@ -20,7 +20,7 @@ export const getPoints = async (): Promise<PointDTO[]> => {
 			points.push({
 				id: pointsId[data.name],
 				name: data.name,
-				coords: [data.coordX, data.coordY],
+				coords: [data.coordX, data.coordY]
 			});
 		});
 

@@ -14,7 +14,7 @@ export const getMaterials = async (): Promise<MaterialDTO[]> => {
 				name: data.name,
 				points: data.points,
 				layers: data.layers,
-				preview: data.materialPreview,
+				preview: data.materialPreview
 			});
 		});
 
