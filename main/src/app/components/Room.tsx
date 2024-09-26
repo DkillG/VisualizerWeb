@@ -118,6 +118,7 @@ const Room = ({
 								<Image
 									width={180}
 									height={180}
+									loading='eager'
 									alt={material.name}
 									src={material.preview}
 									className="rounded-t-md h-20 sm:h-16 justify-self-start"
@@ -142,7 +143,7 @@ const Room = ({
 							left: `${point.coords[0]}%`
 						}}
 						onClick={() => handlePointClick(point)}
-						className="absolute text-sm md:text-2xl hover:scale-110 p-1 bg-zinc-800/40 rounded-full ease-in-out duration-200"
+						className="absolute text-sm md:text-2xl hover:scale-110 p-1 text-zinc-200 bg-zinc-800/40 rounded-full ease-in-out duration-200"
 					>
 						<IoFingerPrint />
 					</button>
