@@ -64,6 +64,11 @@ const Room = ({
 		return () => document.removeEventListener('mousedown', onClickOutside);
 	}, []);
 
+	// Prevent any inifnity loading
+	useEffect(() => {
+		if(loading) setTimeout(() => setLoading(false), 1500);
+	}, [loading]);
+
 	return (
 		<div className="relative">
 			{loading && <div className='absolute flex items-center justify-center w-full h-full top-0 left-0 bg-black/50 z-50'><i className='text-4xl animate-spin'><AiOutlineLoading3Quarters /></i></div>}
