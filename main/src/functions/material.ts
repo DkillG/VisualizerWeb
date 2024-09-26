@@ -9,11 +9,12 @@ export const getMaterials = async (): Promise<MaterialDTO[]> => {
 
 		query.forEach(doc => {
 			const data = doc.data();
+
 			materials.push({
 				name: data.name,
 				points: data.points,
 				layers: data.layers,
-				preview: data.preview,
+				preview: data.materialPreview,
 			});
 		});
 
